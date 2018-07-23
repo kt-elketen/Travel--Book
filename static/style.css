@@ -1,0 +1,92 @@
+/* #header{
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+  margin: 0;
+  padding: 0;
+  height: 45px;
+}
+#background {
+  filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  background-image: url("static/Worldmap.jpg");
+}
+
+body {
+  margin: 0;
+}
+
+#loginbutton{
+  /* margin: auto;
+  position: relative;
+  top: 60%; */
+  /* background-color: #000;
+  z-index: 1;
+  border-radius: 2px;
+  padding: 2px;
+  text-align: center;
+}
+
+#loginbutton_box {
+  margin: auto;
+  position: relative;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+} */
+
+
+body {
+  font-family: 'Roboto Slab', serif;
+  margin: 0;
+}
+
+#navbar {
+  height: 50px;
+  width: 100%;
+  background-color: #eaeaea;
+  position: sticky;
+  padding: 10px #000 solid;
+  margin: 0;
+  float: left;
+  z-index: 1;
+}
+
+#navbar p {
+  color: #898989;
+  font-style: italic;
+  text-align: center;
+}
+
+#maintext {
+  filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  background-image: url("Worldmap.jpg");
+}
+
+#navbar_title {
+  margin: auto;
+}
+
+#loginbutton {
+  background-color: #fff;
+  margin: auto;
+  text-align: center;
+  padding: 2px 15px 2px 15px;
+  top: 50%;
+  margin-left: 45%;
+  z-index: 1;
+  border-radius: 5%;
+  position: fixed;
+}
+
+
+#loginbutton a {
+  text-transform: capitalize;
+  font-size: 22px;
+  text-decoration: none;
+  text-align: center;
+  color: #7c7c7c;
+}
