@@ -23,14 +23,20 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 
 #remember, you can get this by searching for jinja2 google app engine
-jinja_current_dir = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+#jinja_current_dir = jinja2.Environment(
+#    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+#    extensions=['jinja2.ext.autoescape'],
+#    autoescape=True)
+
+jinja_env = jinja2.Environment(
+    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
+)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write("Welcome to travelbook")
+        form_template = jinja_env.get_template('templates/homepage.html')
+        html = form_template.render()
+        self.response.write(html)
 
 
 
