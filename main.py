@@ -42,8 +42,9 @@ class LoginHandler(webapp2.RequestHandler):
                 email_address,
                 signout_link_html))
             else:
-                self.response.write('''
-                Welcome to our site, %s! Please sign up! <br>
+                self.response.write('''<div id=
+                "login_info" style="background-image: url(static/Google_Sign_In.jpg)">
+                Welcome to our site, %s! Please sign up! <br></div>
                 <form method="post" action="/">
                 <input type="text" name="first_name">
                 <input type="text" name="last_name"
@@ -51,7 +52,7 @@ class LoginHandler(webapp2.RequestHandler):
                 </form><br> %s <br>''' % (email_address, signout_link_html))
         else:
             self.response.write('''
-            Please log in to use our site! <br>
+            <Please log in to use our site! <br>
             <a href="%s">Sign in</a>''' %(users.create_login_url('/')))
     def post(self):
         user = users.get_current_user()
