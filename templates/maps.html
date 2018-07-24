@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <link rel="stylesheet" href="style.css">
+<script src="script.js" type="text/javascript"></script> -->
+<title>Globe</title>
+<script async defer src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyA466qXDGXC4IiVXuXj951UIeaG1FZHC10&callback=initMap"></script>
+<style>
+*{
+margin: 0;
+padding: 0;
+}
+#map {
+height: 850px;
+width: 100%
+}
+</style>
+</head>
+<body>
+<div id ="map"></div>
+<script>function initMap(){
+var location = {lat: 26.211016, lng: -98.352488};
+var map = new google.maps.Map(document.getElementById("map"), {
+  zoom: 4,
+  center: location
+});
+var marker= new google.maps.Marker({
+  position: location,
+  map: map
+});
+}
+</script>
+
+</body>
+</html>

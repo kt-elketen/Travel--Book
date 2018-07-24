@@ -11,6 +11,9 @@ class User(ndb.Model):
 
 class LoginHandler(webapp2.RequestHandler):
     def get(self):
+        form_template = jinja_env.get_template('templates/login.html')
+        html = form_template.render()
+        self.response.write(html)
         user = users.get_current_user()
         if user:
             email_address = user.nickname()
