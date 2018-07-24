@@ -21,15 +21,16 @@ threadsafe: yes
 handlers:
 #new handlers should go ABOVE the catch all url (.*)
 
+- url: /Login
+  script: login.app
+=======
+
 - url: /static
   static_dir: static
 
 - url: /.*
   script: main.app
 
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
 
 libraries:
 - name: webapp2

@@ -1,25 +1,9 @@
 import webapp2
 import os
 import jinja2
-import login
 
-
-
-#remember, you can get this by searching for jinja2 google app engine
-#jinja_current_dir = jinja2.Environment(
-#    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-#    extensions=['jinja2.ext.autoescape'],
-#    autoescape=True)
-
-jinja_env = jinja2.Environment(
-    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
-)
-
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        form_template = jinja_env.get_template('templates/homepage.html')
-        html = form_template.render()
-        self.response.write(html)
+from google.appengine.api import users
+from google.appengine.ext import ndb
 
 class User(ndb.Model):
     first_name = ndb.StringProperty()
@@ -59,8 +43,3 @@ class LoginHandler(webapp2.RequestHandler):
             id=user.user_id())
         user.put()
         self.response.write("Thanks for signing up, %s!" % user.first_name)
-
-app = webapp2.WSGIApplication([
-  ('/', MainHandler),
-  ('/login', LoginHandler)
-], debug=True)
