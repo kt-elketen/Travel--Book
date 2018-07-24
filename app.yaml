@@ -21,6 +21,9 @@ threadsafe: yes
 
 handlers:
 #new handlers should go ABOVE the catch all url (.*)
+- url: /Login
+  script: login.app
+
 - url: /.*
   script: main.app
 
