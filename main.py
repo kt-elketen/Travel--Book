@@ -21,8 +21,6 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(html)
 class TripsHandler(webapp2.RequestHandler):
     def get(self):
-        
-
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
