@@ -42,14 +42,13 @@ class LoginHandler(webapp2.RequestHandler):
                 email_address,
                 signout_link_html))
             else:
-                self.response.write('''<div id=
-                "login_info" style="background-image: url(static/Google_Sign_In.jpg)">
-                Welcome to our site, %s! Please sign up! <br></div>
+                self.response.write('''
+                <div id="login_info"> Welcome to our site, %s! Please sign up! <br>
                 <form method="post" action="/">
                 <input type="text" name="first_name">
                 <input type="text" name="last_name"
                 <input type="submit">
-                </form><br> %s <br>''' % (email_address, signout_link_html))
+                </form><br> %s <br></div>''' % (email_address, signout_link_html))
         else:
             self.response.write('''
             <Please log in to use our site! <br>

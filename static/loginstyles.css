@@ -8,7 +8,7 @@ body {
   width: 100%;
   background-color: #eaeaea;
   position: sticky;
-  padding: 10px #000 solid;
+  padding: 5px;
   margin: 0;
   float: left;
   z-index: 1;
@@ -21,8 +21,12 @@ body {
 }
 
 #maintext {
-  background-color: #003322;
+  filter: blur(5px);
+  background-image: url("/static/Worldmap.jpg");
   width: 100%;
+  top: 0;
+  position:fixed;
+  z-index: 0;
   height: 100%;
 }
 
@@ -35,6 +39,7 @@ body {
   height: 250px;
   background-color: #fff;
   margin: auto;
+  z-index: 1;
   top: 30%;
   border-radius: 5%;
   position: relative;
@@ -44,6 +49,20 @@ body {
 #loginbox h2 {
   text-transform: capitalize;
   font-size: 22px;
+  z-index: 1;
   text-align: center;
   color: #7c7c7c;
+}
+
+#login_info {
+  z-index: 1;
+  font-size: 50px;
+  position: fixed;
+  top: 30px;
+  color: #000;
+}
+
+#login_info {
+  z-index: 1;
+  font-size: 29px;
 }
