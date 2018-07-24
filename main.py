@@ -2,7 +2,7 @@ import webapp2
 import os
 import jinja2
 import login
-
+import Model
 
 
 #remember, you can get this by searching for jinja2 google app engine
@@ -10,6 +10,8 @@ import login
 #    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
 #    extensions=['jinja2.ext.autoescape'],
 #    autoescape=True)
+from google.appengine.api import users
+from google.appengine.ext import ndb
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -27,6 +29,9 @@ class User(ndb.Model):
 
 class LoginHandler(webapp2.RequestHandler):
     def get(self):
+        form_template = jinja_env.get_template('templates/login.html')
+        html = form_template.render()
+        self.response.write(html)
         user = users.get_current_user()
         if user:
             email_address = user.nickname()
