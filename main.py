@@ -21,10 +21,10 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write(html)
 class TripsHandler(webapp2.RequestHandler):
     def get(self):
+        pass
 
 app = webapp2.WSGIApplication([
-  ('/', MainHandler),
-  ('/login', login.LoginHandler,
-  ('/trips', TripsHandler)
-
+      ('/', MainHandler),
+      ('/login', login.LoginHandler),
+      ('/trips', TripsHandler)
 ], debug=True)
