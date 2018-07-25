@@ -4,6 +4,7 @@ import jinja2
 import login
 from google.appengine.api import images
 from google.appengine.ext import ndb
+import maps
 
 
 #remember, you can get this by searching for jinja2 google app engine
@@ -82,8 +83,11 @@ app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
       ('/trips', TripsHandler),
+
+      ('/triplist', TripListHandler),
+      ('/maps', maps.MapsHandler),
+      ('/maps/record_request', maps.RecordRequestHandler),
       ('/upload', UploadHandler),
       ('/img', Image),
-      ('/triplist', TripListHandler),
       ('/triptimeline', TripTimelineHandler)
 ], debug=True)
