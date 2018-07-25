@@ -85,7 +85,7 @@ app = webapp2.WSGIApplication([
 
       ('/triplist', TripListHandler),
       ('/maps', maps.MapsHandler),
-      ('/maps/record_request', maps.RecordRequestHandler)
+      ('/maps/record_request', maps.RecordRequestHandler),
       ('/upload', UploadHandler),
       ('/img', Image),
       ('/triptimeline', TripTimelineHandler)
