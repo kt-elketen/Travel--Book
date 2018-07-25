@@ -2,6 +2,8 @@ import webapp2
 import os
 import jinja2
 import login
+from google.appengine.api import images
+from google.appengine.ext import ndb
 
 
 #remember, you can get this by searching for jinja2 google app engine
@@ -50,11 +52,10 @@ class UploadHandler(webapp2.RequestHandler):
         data.description = self.request.get('description')
         data.comments = self.request.get('comments')
         data.information = self.request.get('information')
-        data.image = image.resize(self.request.get('image'), 250, 250)
+        data.image = images.resize(self.request.get('image'), 250, 250)
         data.put()
 
 # Model for an image:
-from google.appengine.ext import ndb
 class Data(ndb.Model):
     trip = ndb.StringProperty(required = True)
     location = ndb.StringProperty(required = True)
