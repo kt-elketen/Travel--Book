@@ -19,12 +19,31 @@ class MainHandler(webapp2.RequestHandler):
         form_template = jinja_env.get_template('templates/homepage.html')
         html = form_template.render()
         self.response.write(html)
+
 class TripsHandler(webapp2.RequestHandler):
     def get(self):
         pass
 
+class UploadHandler(webapp2.RequestHandler):
+    def get(self):
+        # form_template = jinja_env.get_template('templates/upload.html')
+        # html = form_template.render()
+        # self.response.write(html)
+
+class ImageHandler(webapp2.RequestHandler):
+    def get(self):
+        key = ndb.Key("Data", int(self.request.get("id")))
+        data = key.get()
+        self.response.headers['Content-Type'] = 'image/jpg'
+        self.response.write(data.image)
+
+
+
+
 app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
-      ('/trips', TripsHandler)
+      ('/trips', TripsHandler),
+      ('/upload', UploadHandler),
+      ('/img', ImageHandler)
 ], debug=True)
