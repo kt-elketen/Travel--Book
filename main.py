@@ -40,6 +40,6 @@ app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
       ('/trips', TripsHandler),
-      ('/triplist', TripListHandler)
+      ('/triplist', TripListHandler),
       ('/triptimeline', TripTimelineHandler)
 ], debug=True)
