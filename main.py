@@ -2,6 +2,7 @@ import webapp2
 import os
 import jinja2
 import login
+import maps
 
 
 #remember, you can get this by searching for jinja2 google app engine
@@ -34,5 +35,7 @@ app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
       ('/trips', TripsHandler),
-      ('/triplist', TripListHandler)
+      ('/triplist', TripListHandler),
+      ('/maps', maps.MapsHandler),
+      ('/maps/record_request', maps.RecordRequestHandler)
 ], debug=True)
