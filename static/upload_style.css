@@ -44,7 +44,7 @@ body {
   z-index: 1;
   padding: 20px;
   width: 300px;
-  top: -60%;
+  top: -65%;
   background-color: #fff;
   border-radius: 5%;
   position: relative;
@@ -57,4 +57,32 @@ body {
 #submission_button {
   padding-top: 10px;
   text-align: center;
+}
+
+input {
+  width: 200px;
+}
+
+#trip {
+  width: 250px;
+}
+
+#location {
+  width: 215px;
+}
+
+#date {
+  width: 247px;
+}
+
+#description {
+  width: 193px;
+}
+
+#comments {
+  width: 200px;
+}
+
+#information {
+  width: 192px;
 }
