@@ -10,10 +10,17 @@ JINJA_ENV = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+
+#class CoordsRequest(ndb.Model):
+#    lat = ndb.StringProperty(required = True)
+#    lon = ndb.StringProperty(required = True)
+#    timestamp = ndb.DateTimeProperty(auto_now_add = True)
+
 class CoordsRequest(ndb.Model):
     lat = ndb.StringProperty(required = True)
     lon = ndb.StringProperty(required = True)
     timestamp = ndb.DateTimeProperty(auto_now_add = True)
+
 
 class AddressRequest(ndb.Model):
     address = ndb.StringProperty(required = True)
@@ -22,15 +29,25 @@ class AddressRequest(ndb.Model):
 class RecordRequestHandler(webapp2.RequestHandler):
     def post(self):
         logging.info(self.request)
-        if self.request.get('type') == "coords":
-            new_record = CoordsRequest(lat = self.request.get('lat'),
-                                       lon = self.request.get('lon'))
-            new_record.put()
-        elif self.request.get('type') == "address":
+
+        if  self.request.get('type') == "address":
+        # if self.request.get('type') == "coords":
+        #     new_record = CoordsRequest(lat = self.request.get('lat'),
+        #                                lon = self.request.get('lon'))
+        #     new_record.put()
+        # elif self.request.get('type') == "address":
             new_address_record = AddressRequest(address = self.request.get('address'))
             new_address_record.put()
         else:
             logging.error("Malformed Request!")
+
+
+class MapsHandler(webapp2.RequestHandler):
+    def get(self):
+        # All we need to do is really just displaying the page once.
+        # From now on everything will be client-side, at least for now.
+        template = JINJA_ENV.get_template('templates/maps.html')
+        self.response.write(template.render())
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):

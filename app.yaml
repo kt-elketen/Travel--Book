@@ -20,6 +20,9 @@ threadsafe: yes
 
 handlers:
 #new handlers should go ABOVE the catch all url (.*)
+- url: /scripts
+  static_dir: scripts
+
 - url: /Login
   script: login.app
 
