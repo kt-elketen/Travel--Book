@@ -9,7 +9,7 @@ jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
 )
 
-class User(ndb.Model):
+class TravelUser(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
 
@@ -17,32 +17,26 @@ class LoginHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            form_template = jinja_env.get_template('templates/login.html')
-            html = form_template.render()
-            self.response.write(html)
             email_address = user.nickname()
-            user = User.get_by_id(user.user_id())
-            signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-            if user:
-                self.response.write('''Welcome %s %s (%s)! <br>''' %(user.frist_name,
-                user.last_name,
+            traveluser = TravelUser.get_by_id(user.user_id())
+            signout_link_html = ('<a href="%s">Sign Out</a>' % (users.create_logout_url('/logout')))
+            if traveluser:
+                self.response.write('''Welcome %s %s (%s)! <br> %s''' %(traveluser.first_name,
+                traveluser.last_name,
                 email_address,
                 signout_link_html))
             else:
-                form_template = jinja_env.get_template('templates/login.html')
-                html = form_template.render()
-                self.response.write(html)
-                self.response.write('''
-                Welcome to our site, %s! Please sign up! <br>
-                <form method="post" action="/">
-                <input type="text" name="first_name">
-                <input type="text" name="last_name"
-                <input type="submit">
-                </form><br> %s <br>''' % (email_address, signout_link_html))
+                signup_data = {
+                'logout_link': signout_link_html
+                }
+                signup_template = jinja_env.get_template('templates/welcomepage.html')
+                html3 = signup_template.render(signup_data)
+                self.response.write(html3)
+
         else:
-            template_data = {'login_link': users.create_login_url('/')}
+            login_data = {'login_link': users.create_login_url('/')}
             login_template = jinja_env.get_template('templates/login_link.html')
-            html2 = login_template.render(template_data)
+            html2 = login_template.render(login_data)
             self.response.write(html2)
             return
 
@@ -51,7 +45,7 @@ class LoginHandler(webapp2.RequestHandler):
         if not user:
             self.error(500)
             return
-        user = user(frist_name = self.request.get('first_name'),
+        user = TravelUser(first_name = self.request.get('first_name'),
             last_name=self.request.get('last_name'),
             id=user.user_id())
         user.put()
