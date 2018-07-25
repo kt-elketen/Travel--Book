@@ -29,6 +29,12 @@ class TripListHandler(webapp2.RequestHandler):
         html = form_template.render()
         self.response.write(html)
         pass
+class TripTimelineHandler(webapp2.RequestHandler):
+    def get(self):
+        form_template = jinja_env.get_template('templates/triptimeline.html')
+        html = form_template.render()
+        self.response.write(html)
+        pass
 
 
 class UploadHandler(webapp2.RequestHandler):
@@ -77,5 +83,6 @@ app = webapp2.WSGIApplication([
       ('/trips', TripsHandler),
       ('/upload', UploadHandler),
       ('/img', Image),
-      ('/triplist', TripListHandler)
+      ('/triplist', TripListHandler),
+      ('/triptimeline', TripTimelineHandler)
 ], debug=True)

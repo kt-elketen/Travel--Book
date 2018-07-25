@@ -1,0 +1,95 @@
+body {
+  font-family: 'Roboto Slab', serif;
+  margin: 0;
+}
+
+#navbar {
+  height: 50px;
+  width: 100%;
+  background-color: #eaeaea;
+  position: sticky;
+  padding: 5px;
+  margin: 0;
+  float: left;
+  z-index: 1;
+}
+
+#navbar p {
+  color: #898989;
+  font-style: italic;
+  text-align: center;
+}
+
+#maintext {
+  filter: blur(5px);
+  background-image: url("/static/Worldmap.jpg");
+  width: 100%;
+  top: 0;
+  position:fixed;
+  z-index: 0;
+  height: 100%;
+}
+
+#navbar_title {
+  margin: auto;
+}
+
+#trip_title {
+  margin: auto;
+  z-index: 1;
+  text-align: center;
+  top: 5%;
+  position: relative;
+}
+
+#trip_title_description {
+  margin: auto;
+  z-index: 1;
+  text-align: center;
+  top: 5%;
+  position: relative;
+}
+
+
+#all_trips {
+  display: block;
+  overflow-x: scroll;
+  overflow-y: visible;
+  white-space: nowrap;
+
+  width: 80%;
+  min-width: 500px;
+  margin: auto;
+  z-index: 1;
+  top: 10%;
+  position: relative;
+}
+
+#all_trips div {
+  display: inline-block;
+  width: 150px;
+  margin-right: 200px;
+  margin-bottom: 50px;
+}
+
+#all_trips img {
+  width: 150px;
+  height: auto;
+  margin-left: 0%;
+  position: relative;
+  transition: width 2s;
+  -webkit-transition: width 1.0s;
+}
+
+#all_trips div p {
+  text-align: left;
+}
+
+#all_trips div #trip_attr {
+  text-align: center;
+}
+
+#all_trips img:hover {
+  width: 250px;
+
+}
