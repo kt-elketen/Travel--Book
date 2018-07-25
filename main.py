@@ -26,12 +26,14 @@ class MainHandler(webapp2.RequestHandler):
 class TripsHandler(webapp2.RequestHandler):
     def get(self):
         pass
+
 class TripListHandler(webapp2.RequestHandler):
     def get(self):
         form_template = jinja_env.get_template('templates/triplist.html')
         html = form_template.render()
         self.response.write(html)
-        pass
+    Data.query().fetch()
+
 class TripTimelineHandler(webapp2.RequestHandler):
     def get(self):
         form_template = jinja_env.get_template('templates/triptimeline.html')
@@ -55,6 +57,7 @@ class UploadHandler(webapp2.RequestHandler):
         data.information = self.request.get('information')
         data.image = images.resize(self.request.get('image'), 250, 250)
         data.put()
+        self.redirect("/triplist")
 
 # Model for an image:
 class Data(ndb.Model):
