@@ -33,11 +33,35 @@ class TripListHandler(webapp2.RequestHandler):
 
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
-        # form_template = jinja_env.get_template('templates/upload.html')
-        # html = form_template.render()
-        # self.response.write(html)
+        form_template = jinja_env.get_template('templates/upload.html')
+        html = form_template.render()
+        self.response.write(html)
+    def post(self):
+        data = Data()
+        data.trip = self.request.get('trip')
+        data.location = self.request.get('location')
+        data.date = self.request.get('date')
+        data.description = self.request.get('description')
+        data.comments = self.request.get('comments')
+        data.information = self.request.get('information')
+        data.image = image.resize(self.request.get('image'), 250, 250)
+        data.put()
 
-class ImageHandler(webapp2.RequestHandler):
+# Model for an image:
+from google.appengine.ext import ndb
+class Data(ndb.Model):
+    trip = ndb.StringProperty(required = True)
+    location = ndb.StringProperty(required = True)
+    date = ndb.StringProperty(required = True)
+    description = ndb.StringProperty(required = False)
+    comments = ndb.StringProperty(required = False)
+    information = ndb.StringProperty(required = False)
+    image = ndb.BlobProperty(required = True)
+
+
+
+
+class Image(webapp2.RequestHandler):
     def get(self):
         key = ndb.Key("Data", int(self.request.get("id")))
         data = key.get()
@@ -52,6 +76,6 @@ app = webapp2.WSGIApplication([
       ('/login', login.LoginHandler),
       ('/trips', TripsHandler),
       ('/upload', UploadHandler),
-      ('/img', ImageHandler),
-      ('/triplist', TripListHandler) 
+      ('/img', Image),
+      ('/triplist', TripListHandler)
 ], debug=True)
