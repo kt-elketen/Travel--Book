@@ -4,6 +4,8 @@ import jinja2
 import login
 from google.appengine.api import images
 from google.appengine.ext import ndb
+from google.appengine.ext import blobstore
+
 import maps
 
 
@@ -29,9 +31,32 @@ class TripsHandler(webapp2.RequestHandler):
 
 class TripListHandler(webapp2.RequestHandler):
     def get(self):
+        template_data = {}
         form_template = jinja_env.get_template('templates/triplist.html')
-        html = form_template.render()
+        trips = Trip.query().fetch()
+        for trip in trips:
+            template_data[trip.pictures[0].urlsafe()] = trip
+        html = form_template.render({
+            'trips': template_data,
+        })
+
+        # blob_key = self.request.get("blob_key")
+        # if blob_key:
+        #     blob_info = blobstore.get(blob_key)
+        #
+        #     if blob_info:
+        #         img = images.Image(blob_key=blob_key)
+        #         img.im_feeling_lucky()
+        #         thumbnail = img.execute_transforms(output_encoding=images.JPEG)
+        #
+        #         self.response.headers['Content-Type'] = 'image/jpeg'
+        #         self.response.out.write(thumbnail)
+        #         return
+        # url = images.get_serving_url(
+        #     blob_key, secure_url=True)
         self.response.write(html)
+
+        #all_trips = Trip.query().fetch()
 
 class TripTimelineHandler(webapp2.RequestHandler):
     def get(self):
@@ -39,6 +64,17 @@ class TripTimelineHandler(webapp2.RequestHandler):
         html = form_template.render()
         self.response.write(html)
         pass
+
+class NewTripHandler(webapp2.RequestHandler):
+    def get(self):
+        form_template = jinja_env.get_template('templates/new_trip.html')
+        html = form_template.render()
+        self.response.write(html)
+    def post(self):
+        trip = Trip()
+        trip.name=self.request.get('trip')
+        trip.put()
+        self.redirect("/newpicture")
 
 # Model for an image:
 class Picture(ndb.Model):
@@ -50,11 +86,19 @@ class Picture(ndb.Model):
 class Trip(ndb.Model):
     name = ndb.StringProperty(required = True)
     pictures = ndb.KeyProperty(Picture, repeated = True)
+    thumbnail = ndb.StringProperty(required = False)
 
-class UploadHandler(webapp2.RequestHandler):
+class NewPictureHandler(webapp2.RequestHandler):
     def get(self):
-        form_template = jinja_env.get_template('templates/upload.html')
-        html = form_template.render()
+        template_data = {}
+        trips = Trip.query().fetch()
+        form_template = jinja_env.get_template('templates/New_picture.html')
+        for trip in trips:
+            template_data[trip.name] = trip
+        html = form_template.render({
+            'trips': template_data
+        })
+        print(trips)
         self.response.write(html)
     def post(self):
         picture = Picture()
@@ -68,6 +112,8 @@ class UploadHandler(webapp2.RequestHandler):
         trip.pictures=[picture_key]
         trip.put()
         self.redirect("/triplist")
+
+
 
 class Image(webapp2.RequestHandler):
     def get(self):
@@ -98,7 +144,8 @@ app = webapp2.WSGIApplication([
       ('/triplist', TripListHandler),
       ('/maps', maps.MapsHandler),
       ('/maps/record_request', maps.RecordRequestHandler),
-      ('/upload', UploadHandler),
+      ('/newpicture', NewPictureHandler),
       ('/img', Image),
-      ('/triptimeline', TripTimelineHandler)
+      ('/triptimeline', TripTimelineHandler),
+      ('/newtrip', NewTripHandler)
 ], debug=True)

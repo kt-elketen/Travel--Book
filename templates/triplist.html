@@ -18,7 +18,9 @@
 <h1 id="trip_title">All Trips </h1>
 
 <div id="all_trips">
-  <div><p>Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /></div>
+  {% for key, trip in trips.iteritems() %}
+  <div><p>{{ trip.name }} </p><img src="/img?img_id={{ key }}"></img></div>
+  {% endfor %}
   <div><p>Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /></div>
   <div><p>Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /></div>
 </div>
