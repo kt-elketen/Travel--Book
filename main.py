@@ -7,8 +7,7 @@ from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 
 import maps
-
-
+from google.appengine.api import images
 #remember, you can get this by searching for jinja2 google app engine
 #jinja_current_dir = jinja2.Environment(
 #    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -60,10 +59,15 @@ class TripListHandler(webapp2.RequestHandler):
 
 class TripTimelineHandler(webapp2.RequestHandler):
     def get(self):
+        timeline_data = {
+        'picture_date': Pictures.date,
+        'picture_place': Pictures.location,
+        'picture_description': Pictures.description,
+        'trip_name': Trip.name
+        }
         form_template = jinja_env.get_template('templates/triptimeline.html')
-        html = form_template.render()
+        html = form_template.render(timeline_data)
         self.response.write(html)
-        pass
 
 class NewTripHandler(webapp2.RequestHandler):
     def get(self):
@@ -140,7 +144,6 @@ app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
       ('/trips', TripsHandler),
-
       ('/triplist', TripListHandler),
       ('/maps', maps.MapsHandler),
       ('/maps/record_request', maps.RecordRequestHandler),

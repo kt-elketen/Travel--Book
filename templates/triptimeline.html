@@ -15,13 +15,14 @@
 </div>
 
 
-<h1 id="trip_title">Trip 1</h1>
-<h1 id="trip_title_description">Location | Date</h1>
+<h1 id="trip_title">{{trip_name}}</h1>
+<h1 id="trip_title_description">{{picture_location}} | {{trip_dates}}</h1>
 
 <div id="all_trips">
-  <div><p id="trip_attr">Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p id="trip_attr">Description: <br> Information:</p></div>
-  <div><p id="trip_attr">Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>Description: <br> Information:</p></div>
-  <div><p id="trip_attr">Time | Place</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>Description: <br> Information:</p></div>
+  <!-- For every one of the records you find, output single line with the (Jinja to repeat the pictures) -->
+  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p id="trip_attr">{{picture_description}} <br></div>
+  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>{{picture_description}} <br></div>
+  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>{{picture_description}} <br></div>
 </div>
 
 </body>
