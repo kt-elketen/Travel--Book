@@ -31,8 +31,8 @@ class TripsHandler(webapp2.RequestHandler):
 class TripListHandler(webapp2.RequestHandler):
     def get(self):
         template_data = {}
-        form_template = jinja_env.get_template('templates/triplist.html')
         trips = Trip.query().fetch()
+        form_template = jinja_env.get_template('templates/triplist.html')
         for trip in trips:
             template_data[trip.pictures[0].urlsafe()] = trip
         html = form_template.render({
@@ -75,8 +75,13 @@ class NewTripHandler(webapp2.RequestHandler):
         html = form_template.render()
         self.response.write(html)
     def post(self):
+        picture = Picture()
+        picture.image = images.resize(self.request.get('image'), 250, 250)
+        # picture_key = picture.put()
+        picture.put()
         trip = Trip()
         trip.name=self.request.get('trip')
+        # trip.pictures=[picture_key]
         trip.put()
         self.redirect("/newpicture")
 
