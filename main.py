@@ -78,24 +78,24 @@ class NewTripHandler(webapp2.RequestHandler):
         picture = Picture()
         picture.image = images.resize(self.request.get('image'), 250, 250)
         # picture_key = picture.put()
-        picture.put()
+        picture_key=picture.put()
         trip = Trip()
         trip.name=self.request.get('trip')
+        trip.pictures = [picture_key]
         # trip.pictures=[picture_key]
         trip.put()
         self.redirect("/newpicture")
 
 # Model for an image:
 class Picture(ndb.Model):
-    location = ndb.StringProperty(required = True)
-    date = ndb.StringProperty(required = True)
+    location = ndb.StringProperty(required = False)
+    date = ndb.StringProperty(required = False)
     description = ndb.StringProperty(required = False)
     image = ndb.BlobProperty(required = True)
 
 class Trip(ndb.Model):
     name = ndb.StringProperty(required = True)
     pictures = ndb.KeyProperty(Picture, repeated = True)
-    thumbnail = ndb.StringProperty(required = False)
 
 class NewPictureHandler(webapp2.RequestHandler):
     def get(self):
@@ -117,9 +117,10 @@ class NewPictureHandler(webapp2.RequestHandler):
         picture.image = images.resize(self.request.get('image'), 250, 250)
         picture_key =picture.put()
         trip = Trip()
-        trip.name=self.request.get('trip')
+        trip.name=self.request.get('Trips')
         trip.pictures=[picture_key]
         trip.put()
+        trip.pictures.append(picture.image)
         self.redirect("/triplist")
 
 
