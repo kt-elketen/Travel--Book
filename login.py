@@ -50,3 +50,4 @@ class LoginHandler(webapp2.RequestHandler):
             id=user.user_id())
         user.put()
         self.response.write("Thanks for signing up, %s!" % user.first_name)
+        self.redirect('/triplist')

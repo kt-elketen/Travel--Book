@@ -24,10 +24,6 @@ class MainHandler(webapp2.RequestHandler):
         html = form_template.render()
         self.response.write(html)
 
-class TripsHandler(webapp2.RequestHandler):
-    def get(self):
-        pass
-
 class TripListHandler(webapp2.RequestHandler):
     def get(self):
         template_data = {}
@@ -59,19 +55,24 @@ class TripListHandler(webapp2.RequestHandler):
 
 class TripTimelineHandler(webapp2.RequestHandler):
     def get(self):
-        timeline_data = {
-        'picture_date': Pictures.date,
-        'picture_place': Pictures.location,
-        'picture_description': Pictures.description,
-        'trip_name': Trip.name
-        }
+        template_data = {}
+        trips = Trip.query().fetch()
         form_template = jinja_env.get_template('templates/triptimeline.html')
-        html = form_template.render(timeline_data)
+        trip_name = self.request.get('name')
+        for trip in trips:
+            if trip.name == trip_name:
+                pictures = trip.pictures
+                for picture in pictures:
+                    template_data[picture.urlsafe()] = picture.get()
+        html = form_template.render({
+            'pictures': template_data,
+            'trip_name': trip_name,
+        })
         self.response.write(html)
 
 class NewTripHandler(webapp2.RequestHandler):
     def get(self):
-        form_template = jinja_env.get_template('templates/new_trip.html')
+        form_template = jinja_env.get_template('templates/newtrip.html')
         html = form_template.render()
         self.response.write(html)
     def post(self):
@@ -101,14 +102,14 @@ class NewPictureHandler(webapp2.RequestHandler):
     def get(self):
         template_data = {}
         trips = Trip.query().fetch()
-        form_template = jinja_env.get_template('templates/New_picture.html')
+        form_template = jinja_env.get_template('templates/newpicture.html')
         for trip in trips:
             template_data[trip.name] = trip
         html = form_template.render({
             'trips': template_data
         })
-        print(trips)
         self.response.write(html)
+
     def post(self):
         picture = Picture()
         picture.location = self.request.get('location')
@@ -116,11 +117,14 @@ class NewPictureHandler(webapp2.RequestHandler):
         picture.description = self.request.get('description')
         picture.image = images.resize(self.request.get('image'), 250, 250)
         picture_key =picture.put()
-        trip = Trip()
-        trip.name=self.request.get('Trips')
-        trip.pictures=[picture_key]
-        trip.put()
-        trip.pictures.append(picture.image)
+        trips = Trip.query().fetch()
+        trip_name = self.request.get('Trips')
+        for trip in trips:
+            if trip.name == trip_name:
+                trip.pictures.append(picture_key)
+                print("Number of pictures " + str(len(trip.pictures)))
+                trip.put()
+                print("Number of pictures " + str(len(trip.pictures)))
         self.redirect("/triplist")
 
 
@@ -149,7 +153,6 @@ class Image(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
       ('/', MainHandler),
       ('/login', login.LoginHandler),
-      ('/trips', TripsHandler),
       ('/triplist', TripListHandler),
       ('/maps', maps.MapsHandler),
       ('/maps/record_request', maps.RecordRequestHandler),

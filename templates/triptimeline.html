@@ -16,13 +16,12 @@
 
 
 <h1 id="trip_title">{{trip_name}}</h1>
-<h1 id="trip_title_description">{{picture_location}} | {{trip_dates}}</h1>
 
 <div id="all_trips">
   <!-- For every one of the records you find, output single line with the (Jinja to repeat the pictures) -->
-  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p id="trip_attr">{{picture_description}} <br></div>
-  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>{{picture_description}} <br></div>
-  <div><p id="trip_attr">{{picture_date}} | {{picture_place}}</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" /> <p>{{picture_description}} <br></div>
+  {% for key, picture in pictures.iteritems() %}
+  <div><p id="trip_attr">{{ picture.date }} | {{ picture.location }}</p><img src="/img?img_id={{ key }}" /> <p id="trip_attr">{{picture.description}} <br></div>
+  {% endfor %}
 </div>
 
 </body>
