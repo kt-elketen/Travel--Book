@@ -38,12 +38,12 @@ body {
 
 
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
 }
 
 #navbar {
-  height: 50px;
+  height: 100px;
   width: 100%;
   background-color: #eaeaea;
   position: sticky;
@@ -51,7 +51,38 @@ body {
   margin: 0;
   float: left;
   z-index: 1;
+  transition: height 2px;
+  -webkit-transition: height 2px;
 }
+
+#navbar div div {
+  margin: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#navbar div div a {
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #fff;
+  border-radius: 5%;
+  margin: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+
+}
+
+#navbar div div a:hover {
+  text-decoration: line-through;
+}
+
 
 #navbar p {
   color: #898989;
@@ -68,25 +99,18 @@ body {
 
 #navbar_title {
   margin: auto;
+  font-size: 20px;
+  font-family: 'Roboto Slab', serif;
 }
 
-#loginbutton {
-  background-color: #fff;
+#splashtitle {
   margin: auto;
   text-align: center;
-  padding: 2px 15px 2px 15px;
   top: 50%;
-  margin-left: 45%;
+  color: #383838;
+  font-size: 30px;
+  margin-left: 29.5%;
   z-index: 1;
-  border-radius: 5%;
+  border-radius: 10%;
   position: fixed;
-}
-
-
-#loginbutton a {
-  text-transform: capitalize;
-  font-size: 22px;
-  text-decoration: none;
-  text-align: center;
-  color: #7c7c7c;
 }
